@@ -4,6 +4,9 @@ import android.Manifest
 import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
 @Composable
@@ -29,9 +33,16 @@ fun Speedometer(speedKmh: Float) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "${speedKmh.roundToInt()} km/h",
-            style = MaterialTheme.typography.displayLarge
-        )
+        Card(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surfaceTint,
+            ),
+        ) {
+            Text(
+                text = "${speedKmh.roundToInt()} km/h",
+                style = MaterialTheme.typography.displayLarge,
+                modifier = Modifier.padding(16.dp),
+            )
+        }
     }
 }

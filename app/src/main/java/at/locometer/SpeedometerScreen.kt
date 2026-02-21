@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import kotlin.math.roundToInt
 
 @Composable
 @RequiresPermission(allOf = [Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION])
@@ -29,7 +30,7 @@ fun Speedometer(speedKmh: Float) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "$speedKmh km/h",
+            text = "${speedKmh.roundToInt()} km/h",
             style = MaterialTheme.typography.displayLarge
         )
     }

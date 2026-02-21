@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
 fun SpeedometerScreen(
     androidLocationAccess: AndroidLocationAccess
 ) {
-    val speed by androidLocationAccess.speedKmh().collectAsState(0f)
+    val speed by androidLocationAccess.speedKmh.collectAsState(0f)
 
     Speedometer(speed)
 }

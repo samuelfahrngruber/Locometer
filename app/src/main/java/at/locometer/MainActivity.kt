@@ -7,13 +7,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val androidLocationAccess = AndroidLocationAccess(this)
+        val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+        val androidLocationAccess = AndroidLocationAccess(this, appScope)
 
         val permissionLauncher =
             registerForActivityResult(

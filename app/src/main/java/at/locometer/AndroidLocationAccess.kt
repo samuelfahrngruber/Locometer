@@ -31,7 +31,7 @@ class AndroidLocationAccess @RequiresPermission(allOf = [
 
     private val locationRequest = LocationRequest.Builder(
         Priority.PRIORITY_HIGH_ACCURACY,
-        1_000L                          // interval: 1 second
+        1_000L
     ).build()
 
     @SuppressLint("MissingPermission")

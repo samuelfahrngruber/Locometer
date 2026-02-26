@@ -38,20 +38,15 @@ fun SpeedWidget(
 
 @Composable
 fun Speedometer(speedKmh: Float) {
-    Box(
-        modifier = Modifier.fillMaxWidth().padding(24.dp),
-        contentAlignment = Alignment.Center
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceTint,
+        ),
     ) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surfaceTint,
-            ),
-        ) {
-            Text(
-                text = "${speedKmh.roundToInt()} km/h",
-                style = MaterialTheme.typography.displayLarge,
-                modifier = Modifier.padding(16.dp),
-            )
-        }
+        Text(
+            text = "${speedKmh.roundToInt()} km/h",
+            style = MaterialTheme.typography.displayLarge,
+            modifier = Modifier.padding(16.dp),
+        )
     }
 }

@@ -3,6 +3,7 @@ package at.locometer.dataaccess
 import android.location.Location
 import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -63,10 +64,13 @@ class OverpassApiRepository {
             out center;
         """.trimIndent()
 
+        apiCalls.value++
         cachedTile = service.query(query)
         cachedTileCenter = location
         return cachedTile
     }
+
+    val apiCalls = MutableStateFlow(0)
 
     interface OverpassService {
         @GET("interpreter")

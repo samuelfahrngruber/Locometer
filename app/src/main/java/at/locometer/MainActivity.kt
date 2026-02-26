@@ -18,6 +18,7 @@ import at.locometer.business.LiveInfo
 import at.locometer.dataaccess.AndroidLocationRepository
 import at.locometer.dataaccess.OverpassApiRepository
 import at.locometer.widgets.DebugWidget
+import at.locometer.widgets.LinksWidget
 import at.locometer.widgets.MaxSpeedWidget
 import at.locometer.widgets.SpeedWidget
 import kotlinx.coroutines.CoroutineScope
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
                 SpeedWidget(liveInfo)
                 MaxSpeedWidget(liveInfo)
                 DebugWidget(liveInfo)
+                LinksWidget(liveInfo)
             }
         }
     }

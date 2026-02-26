@@ -14,6 +14,18 @@ fun DebugWidget(
     liveInfo: LiveInfo
 ) {
     val location by liveInfo.fullLocation.collectAsState(null)
+    val nrApiCalls by liveInfo.nrApiCalls.collectAsState(0)
+    val speedKmh by liveInfo.speedKmh.collectAsState(0f)
 
-    Text("hasSpeed=${location?.hasSpeed()}, speed=${location?.speed}, location=$location")
+    Text("""
+        location.hasSpeed=${location?.hasSpeed()},
+        location.speed=${location?.speed},
+        location.accuracy=${location?.accuracy},
+        location.altitude=${location?.altitude},
+        location.extras=${location?.extras},
+        location=$location,
+        ---
+        speedKmh=$speedKmh,
+        nrApiCalls=$nrApiCalls,
+    """.trimIndent())
 }

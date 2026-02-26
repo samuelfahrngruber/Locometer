@@ -19,4 +19,6 @@ class LiveInfo(
     val maxSpeedKmh = fullLocation.map {
         overpassApiRepository.queryTrainMaxSpeedKmh(it)
     }
+
+    val nrApiCalls = overpassApiRepository.apiCalls
 }

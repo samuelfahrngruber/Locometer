@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.core.content.ContextCompat
 import at.locometer.business.LiveInfo
 import at.locometer.dataaccess.AndroidLocationRepository
+import at.locometer.dataaccess.OverpassApiRepository
 import at.locometer.widgets.DebugWidget
+import at.locometer.widgets.MaxSpeedWidget
 import at.locometer.widgets.SpeedWidget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +26,8 @@ class MainActivity : ComponentActivity() {
         val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
         val androidLocationRepository = AndroidLocationRepository(this, appScope)
-        val liveInfo = LiveInfo(androidLocationRepository)
+        val overpassApiRepository = OverpassApiRepository()
+        val liveInfo = LiveInfo(androidLocationRepository, overpassApiRepository)
 
         val permissionLauncher =
             registerForActivityResult(
@@ -42,6 +45,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Column() {
                 SpeedWidget(liveInfo)
+                MaxSpeedWidget(liveInfo)
                 DebugWidget(liveInfo)
             }
         }

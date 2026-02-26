@@ -1,4 +1,4 @@
-package at.locometer
+package at.locometer.dataaccess
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 
-class AndroidLocationAccess @RequiresPermission(allOf = [
+class AndroidLocationRepository @RequiresPermission(allOf = [
     Manifest.permission.ACCESS_COARSE_LOCATION,
     Manifest.permission.ACCESS_FINE_LOCATION
 ]) constructor(
@@ -45,11 +45,7 @@ class AndroidLocationAccess @RequiresPermission(allOf = [
         awaitClose { locationProvider.removeLocationUpdates(callback) }
     }.shareIn(
         scope = scope,
-        started = SharingStarted.WhileSubscribed(5_000),
+        started = SharingStarted.Companion.WhileSubscribed(5_000),
         replay = 1
     )
-
-    val speedMs = location.map { it.speed }
-
-    val speedKmh = speedMs.map { it * 3.6f }
 }

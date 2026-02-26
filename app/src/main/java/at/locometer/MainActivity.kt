@@ -6,7 +6,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Column
 import androidx.core.content.ContextCompat
+import at.locometer.business.LiveInfo
+import at.locometer.dataaccess.AndroidLocationRepository
+import at.locometer.widgets.DebugWidget
+import at.locometer.widgets.SpeedWidget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -18,7 +23,8 @@ class MainActivity : ComponentActivity() {
 
         val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
-        val androidLocationAccess = AndroidLocationAccess(this, appScope)
+        val androidLocationRepository = AndroidLocationRepository(this, appScope)
+        val liveInfo = LiveInfo(androidLocationRepository)
 
         val permissionLauncher =
             registerForActivityResult(
@@ -34,7 +40,10 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            SpeedometerScreen(androidLocationAccess)
+            Column() {
+                SpeedWidget(liveInfo)
+                DebugWidget(liveInfo)
+            }
         }
     }
 }

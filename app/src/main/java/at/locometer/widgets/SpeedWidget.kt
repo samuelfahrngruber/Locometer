@@ -1,9 +1,10 @@
-package at.locometer
+package at.locometer.widgets
 
 import android.Manifest
 import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -15,14 +16,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import at.locometer.business.LiveInfo
+import at.locometer.dataaccess.AndroidLocationRepository
 import kotlin.math.roundToInt
 
 @Composable
 @RequiresPermission(allOf = [Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION])
-fun SpeedometerScreen(
-    androidLocationAccess: AndroidLocationAccess
+fun SpeedWidget(
+    liveInfo: LiveInfo
 ) {
-    val speed by androidLocationAccess.speedKmh.collectAsState(0f)
+    val hasSpeed by liveInfo.hasSpeed.collectAsState(false)
+
+    if (!hasSpeed) {
+        return Text(text="<no speed data>")
+    }
+
+    val speed by liveInfo.speedKmh.collectAsState(0f)
 
     Speedometer(speed)
 }
@@ -30,7 +39,7 @@ fun SpeedometerScreen(
 @Composable
 fun Speedometer(speedKmh: Float) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth().padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
         Card(
